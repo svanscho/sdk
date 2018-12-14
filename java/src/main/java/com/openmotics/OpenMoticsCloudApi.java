@@ -6,8 +6,13 @@ import com.openmotics.exceptions.ApiException;
 import com.openmotics.exceptions.AuthenticationException;
 import com.openmotics.exceptions.ForbiddenException;
 import com.openmotics.exceptions.MaintenanceModeException;
+import com.openmotics.model.Installation;
+import com.openmotics.model.OutputStatus;
+import com.openmotics.model.Status;
+import com.openmotics.model.Version;
+import com.openmotics.responses.OutputStatusResponse;
+import com.openmotics.responses.ThermostatStatusResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.IOUtils;
 import org.apache.http.Consts;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -90,12 +95,44 @@ public class OpenMoticsCloudApi {
         return payload;
     }
 
+    //get the status of the master
+    //returns 'time' (HH:MM), 'date' (DD:MM:YYYY), 'mode', 'version' (a.b.c) and 'hw_version'
+    public Status getStatus() throws IOException, ApiException {
+        InputStream data = execAction("get_status");
+        return jsonMapper.readValue(data, Status.class);
+    }
+    //get the status of the master
+    //returns 'time' (HH:MM), 'date' (DD:MM:YYYY), 'mode', 'version' (a.b.c) and 'hw_version'
+    public List<OutputStatus> getOutputStatus() throws IOException, ApiException {
+        InputStream data = execAction("get_output_status");
+        OutputStatusResponse response = jsonMapper.readValue(data, OutputStatusResponse.class);
+        log.info(String.valueOf(response.getStatus()));
+        return response.getStatus();
+    }
+
+    //get the status of the thermostats
+    //returns: global status information about the thermostats:
+    // 'thermostats_on'
+    // 'automatic'
+    // 'setpoint'
+    // 'status': a list with status information for all thermostats:
+    // 'id'
+    // 'act'
+    // 'csetp'
+    // 'output0'
+    // 'output1'
+    // 'outside'
+    // 'mode'
+    public ThermostatStatusResponse getThermostatStatus() throws IOException, ApiException {
+        InputStream data = execAction("get_thermostat_status");
+        ThermostatStatusResponse response = jsonMapper.readValue(data, ThermostatStatusResponse.class);
+        return response;
+    }
+
     //get the version of the openmotics software.
-    //returns: 'version': String (a.b.c).
-    public String getVersion() throws ApiException, IOException {
+    public Version getVersion() throws ApiException, IOException {
         InputStream data = execAction("get_version");
-        String version = IOUtils.toString(data, "UTF-8");
-        return version;
+        return jsonMapper.readValue(data, Version.class);
     }
 
     //get the version of the openmotics software.
@@ -137,7 +174,6 @@ public class OpenMoticsCloudApi {
             return false;
         }
     }
-
 
     private InputStream execAction(String action) throws IOException, ApiException {
         Map<String, String> payload = new HashMap<>();
