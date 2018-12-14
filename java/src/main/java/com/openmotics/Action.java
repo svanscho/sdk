@@ -1,4 +1,4 @@
-package com.openmotics.api;
+package com.openmotics;
 
 import lombok.Getter;
 

@@ -7,7 +7,7 @@ package com.openmotics.exceptions;
 //This Exception is raised when the user credentials are not valid.
 public class AuthenticationException extends ApiException {
     public AuthenticationException() {
-        super("The provided credentials are not valid.");
+        super("Authentication error: the provided credentials are not valid.");
     }
     public AuthenticationException(String message) {
         super(String.format("Authentication error: %s", message));

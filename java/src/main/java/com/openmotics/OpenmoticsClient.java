@@ -3,7 +3,6 @@ package com.openmotics;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.openmotics.api.Action;
 import com.openmotics.exceptions.*;
 import com.openmotics.model.Installation;
 import com.openmotics.model.OutputStatus;
