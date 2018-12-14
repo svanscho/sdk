@@ -32,6 +32,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/**
+ * A client that allows interaction with the openmotics cloud API
+ *
+ * @author  Sander Van Schoote
+ */
+
 @Slf4j
 public class OpenmoticsClient {
 
@@ -83,7 +90,13 @@ public class OpenmoticsClient {
         this(username, password, hostname, port, true);
     }
 
-    //perform login and store the authentication token
+
+    /**
+     * Performs a login request on the API. If successful, an auth token is retrieved and stored.
+     * @return boolean signalling whether logging in was successful or not.
+     * @exception ClientException if there was an internal client error.
+     * @exception ApiException if there was a problem getting an auth token from the API.
+     */
     public boolean login() throws ApiException, ClientException {
         //1. prepare payload
         Map<String, String> payload = new HashMap<>();
