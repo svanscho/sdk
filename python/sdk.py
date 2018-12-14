@@ -837,9 +837,9 @@ class OpenMoticsCloudApi(OpenMoticsApi):
     MSG_RT_ENERGY_MODULES   = "TYPE_RT_ENERGY_MODULES"
     MSG_RT_ENERGY_TAGS      = "TYPE_RT_ENERGY_TAGS"
 
-    def __init__(self, username, password):
+    def __init__(self, username, password, verify_https=False):
         """ Create a new cloud connector using the cloud username and password. """
-        OpenMoticsApi.__init__(self, username, password, "cloud.openmotics.com", False)
+        OpenMoticsApi.__init__(self, username, password, "cloud.openmotics.com", verify_https)
         self.installations = None
         self.installation_id = None
 
