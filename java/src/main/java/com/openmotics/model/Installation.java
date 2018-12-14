@@ -1,6 +1,8 @@
 package com.openmotics.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 
 /**
@@ -9,9 +11,11 @@ import lombok.ToString;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
+@Getter
+@Setter
 public class Installation {
-    public String id;
-    public String name;
-    public String role;
-    public String version;
+    private String id;
+    private String name;
+    private String role;
+    private String version;
 }

@@ -9,4 +9,7 @@ public class AuthenticationException extends ApiException {
     public AuthenticationException() {
         super("The provided credentials are not valid.");
     }
+    public AuthenticationException(String message) {
+        super(String.format("Authentication error: %s", message));
+    }
 }

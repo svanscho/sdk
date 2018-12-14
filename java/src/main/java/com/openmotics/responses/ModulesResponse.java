@@ -1,7 +1,7 @@
 package com.openmotics.responses;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.openmotics.model.OutputStatus;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -13,7 +13,11 @@ import java.util.List;
 @Getter
 @JsonIgnoreProperties(ignoreUnknown = true)
 @ToString
-public class OutputStatusResponse {
-    private List<OutputStatus> status;
+public class ModulesResponse {
+    private List<String> outputs;
+    private List<String> shutters;
+    private List<String> inputs;
+    @JsonProperty("can_inputs")
+    private List<String> canInputs;
     private Boolean success;
 }
